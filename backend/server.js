@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static frontend
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve index.html for any unknown routes
 app.get('*', (req, res) => {
