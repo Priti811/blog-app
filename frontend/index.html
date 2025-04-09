@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Complete Blog App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+      * { box-sizing: border-box; }
+      body.dark { background: #121212; color: #eee; }
+      .dark .container { background: #1e1e1e; }
+      .hidden { display: none; }
+      input, textarea { color: black; }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-white min-h-screen">
+
+    <!-- Login Page -->
+    <div class="flex items-center justify-center h-screen" id="loginPage">
+      <div class="bg-[#1e293b] p-6 rounded-lg shadow-lg w-full max-w-sm">
+        <h2 class="text-2xl font-semibold text-white mb-4">Login</h2>
+        <input type="text" id="loginUsername" placeholder="Username" class="w-full p-2 rounded mb-3 text-black" />
+        <input type="password" id="loginPassword" placeholder="Password" class="w-full p-2 rounded mb-4 text-black" />
+        <button onclick="login()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">Login</button>
+        <p class="mt-4 text-center text-sm text-blue-400 cursor-pointer" onclick="toggleToSignup()">Don't have an account? Sign Up</p>
+      </div>
+    </div>
+
+    <!-- Signup Page -->
+    <div class="flex items-center justify-center h-screen hidden" id="signupPage">
+      <div class="bg-[#1e293b] p-6 rounded-lg shadow-lg w-full max-w-sm">
+        <h2 class="text-2xl font-semibold text-white mb-4">Sign Up</h2>
+        <input type="text" id="signupUsername" placeholder="Username" class="w-full p-2 rounded mb-3 text-black" />
+        <input type="password" id="signupPassword" placeholder="Password" class="w-full p-2 rounded mb-4 text-black" />
+        <button onclick="signup()" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded">Sign Up</button>
+        <p class="mt-4 text-center text-sm text-blue-400 cursor-pointer" onclick="toggleToLogin()">Already have an account? Login</p>
+      </div>
+    </div>
+
+    <!-- Blog Page -->
+    <div class="p-6 hidden" id="blogPage">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">Welcome, <span id="welcomeUser"></span>!</h1>
+        <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded">Logout</button>
+      </div>
+
+      <div class="mb-6">
+        <h2 class="text-xl mb-2">Create Blog</h2>
+        <input type="text" id="blogTitle" placeholder="Title" class="w-full p-2 rounded mb-2 text-black" />
+        <textarea id="blogContent" placeholder="Content" class="w-full p-2 rounded mb-2 text-black"></textarea>
+        <button onclick="createBlog()" class="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Post</button>
+      </div>
+
+      <div class="mb-4">
+        <input type="text" id="searchInput" placeholder="Search blogs..." class="w-full p-2 rounded text-black" oninput="renderBlogs()">
+      </div>
+
+      <div id="blogList"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="./main.js"></script>
+  </body>
+</html>
