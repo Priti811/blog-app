@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -7,6 +8,14 @@ const Blog = require("./models/Blog");
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve static frontend
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve index.html for any unknown routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/blogApp", {
   useNewUrlParser: true,
