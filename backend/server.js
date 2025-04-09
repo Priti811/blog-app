@@ -1,7 +1,7 @@
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path"); // Make sure this is at the top
 const User = require("./models/User");
 const Blog = require("./models/Blog");
 
@@ -9,14 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static frontend
-//app.use(express.static(path.join(__dirname, 'public')));
-
-// Serve index.html for any unknown routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
-});
-
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/blogApp", {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -42,7 +35,6 @@ app.post("/login", async (req, res) => {
   res.json({ message: "Login successful" });
 });
 
-
 app.get("/blogs", async (req, res) => {
   const blogs = await Blog.find();
   res.json(blogs);
@@ -64,14 +56,11 @@ app.delete("/blogs/:id", async (req, res) => {
   res.json({ message: "Blog deleted" });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
-
-
-// At the bottom of server.js
-const path = require('path');
+// Serve static frontend (React/HTML files from client folder)
 app.use(express.static(path.join(__dirname, '../client')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
