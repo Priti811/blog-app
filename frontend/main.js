@@ -178,3 +178,6 @@ async function deleteBlog(index) {
 // Initial load
 if (currentUser) showBlogPage();
 else document.getElementById("loginPage").classList.remove("hidden");
+fetch('https://succulent-achieved-fireplant.glitch.me')
+  .then(res => res.json())
+  .then(data => console.log(data));
